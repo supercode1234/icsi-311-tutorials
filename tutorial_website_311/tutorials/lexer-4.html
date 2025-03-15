@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Implementing the Lexer - Tutorial</title>
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+    <header>
+        <h1>Implementing the Lexer</h1>
+        <p>Learn how to build a simple lexer in Java.</p>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="lexer-3.html">Previous: Defining Token Types</a></li>
+            <li><a href="lexer-4.html">Implementing the Lexer</a></li>
+        </ul>
+    </nav>
+    <section>
+        <h2>What is a Lexer?</h2>
+        <p>A <strong>lexer</strong> (or tokenizer) is a program that takes a string of text and breaks it into smaller pieces called <strong>tokens</strong>. For example, the input <code>3 + 5 * 2</code> might be tokenized as:</p>
+        <pre><code>
+[NUMBER: 3, OPERATOR: +, NUMBER: 5, OPERATOR: *, NUMBER: 2]
+        </code></pre>
+
+        <h2>Build Your Lexer</h2>
+        <p>Let’s build a simple lexer step by step. Follow these instructions and fill in the missing code.</p>
+
+        <h3>Step 1: Define the Token Class</h3>
+        <p>Create a <code>Token</code> class to represent each token. Use the enum <code>TokenType</code> from the previous tutorial.</p>
+        <pre><code>
+public class Token {
+    public enum TokenType { WORD, NUMBER, ENDOFLINE }
+    public TokenType type;
+    public String value;
+
+    public Token(TokenType type, String value) {
+        // Fill in the constructor
+    }
+
+    @Override
+    public String toString() {
+        // Fill in this method to return a string representation of the token
+    }
+}
+        </code></pre>
+
+        <h3>Step 2: Implement the Lexer</h3>
+        <p>Create a <code>SimpleLexer</code> class with a <code>lex</code> method. Use a state machine to process the input string and build tokens.</p>
+        <pre><code>
+import java.util.ArrayList;
+import java.util.List;
+
+public class SimpleLexer {
+    public static void main(String[] args) {
+        String input = "hello 123 world";
+        System.out.println("Input: " + input);
+
+        // Create a list to store tokens
+        List&lt;Token&gt; tokens = new ArrayList&lt;&gt;();
+
+        // Initialize variables for the state machine
+        StringBuilder currentToken = new StringBuilder();
+        Token.TokenType currentType = null;
+
+        // Loop through each character in the input
+        for (char c : input.toCharArray()) {
+            if (Character.isLetter(c)) {
+                // Handle letters (WORD state)
+                // Fill in the logic here
+            } else if (Character.isDigit(c)) {
+                // Handle digits (NUMBER state)
+                // Fill in the logic here
+            } else if (Character.isWhitespace(c)) {
+                // Handle spaces (reset state)
+                // Fill in the logic here
+            }
+        }
+
+        // Add the last token if it exists
+        if (currentToken.length() > 0) {
+            tokens.add(new Token(currentType, currentToken.toString()));
+        }
+
+        // Print all tokens
+        for (Token token : tokens) {
+            System.out.println("Token: " + token);
+        }
+    }
+}
+        </code></pre>
+
+        <h3>Step 3: Test Your Lexer</h3>
+        <p>Run your program with the input <code>"hello 123 world"</code>. The expected output is:</p>
+        <pre><code>
+Input: hello 123 world
+Token: WORD (hello)
+Token: NUMBER (123)
+Token: WORD (world)
+        </code></pre>
+
+        <h2>Hints</h2>
+        <p>Here are some hints to help you implement the lexer:</p>
+
+        <h3>Hint 1: Use a State Machine</h3>
+        <p>Your lexer should use a state machine to track whether you’re reading a <code>WORD</code>, <code>NUMBER</code>, or something else. For example:</p>
+        <ul>
+            <li>If the current character is a letter, you’re in the <code>WORD</code> state.</li>
+            <li>If the current character is a digit, you’re in the <code>NUMBER</code> state.</li>
+            <li>If the current character is a space, reset the state and output the current token.</li>
+        </ul>
+
+        <h3>Hint 2: Use a StringBuilder</h3>
+        <p>Use a <code>StringBuilder</code> to build tokens character by character. For example:</p>
+        <pre><code>
+StringBuilder currentToken = new StringBuilder();
+        </code></pre>
+
+        <h3>Hint 3: Handle Transitions</h3>
+        <p>When the state changes (e.g., from <code>WORD</code> to <code>NUMBER</code>), output the current token and reset the <code>StringBuilder</code>. For example:</p>
+        <pre><code>
+if (currentType != Token.TokenType.WORD) {
+    if (currentToken.length() > 0) {
+        tokens.add(new Token(currentType, currentToken.toString()));
+        currentToken.setLength(0);
+    }
+    currentType = Token.TokenType.WORD;
+}
+        </code></pre>
+
+        <h2>Next Steps</h2>
+        <p>Once you’ve built your lexer, test it with different inputs (e.g., <code>"3 + 5 * 2"</code>). If you get stuck, revisit the previous tutorials or ask for help in the forum.</p>
+    </section>
+    <footer>
+        <p>Created by [Your Name]. Contact me at [Your Email].</p>
+    </footer>
+</body>
+</html>

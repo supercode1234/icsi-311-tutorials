@@ -1,4 +1,4 @@
-/* General Styles 
+/* General Styles   */  
 
 body {
     font-family: Arial, sans-serif;
@@ -95,9 +95,9 @@ footer p {
     margin: 0;
     font-size: 0.9em;
 }
-  */  
 
-/* Button Styles 
+
+/* Button Styles */
 
 .next-button {
     display: inline-block;
@@ -113,4 +113,3 @@ footer p {
 .next-button:hover {
     background-color: #45a049;
 }
-*/
